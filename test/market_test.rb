@@ -17,7 +17,7 @@ class VendorTest < Minitest::Test
     @vendor1.stock(@item2, 7)
     @vendor2 = Vendor.new("Ba-Nom-a-Nom")
     @vendor2.stock(@item4, 50)
-    @vendor2.stock(@item4, 50)
+    @vendor2.stock(@item3, 25)
     @vendor3 = Vendor.new("Palisade Peach Shack")
     @vendor3.stock(@item1, 65)
   end
@@ -51,5 +51,19 @@ class VendorTest < Minitest::Test
     @market.add_vendor(@vendor3)
     assert_equal [@vendor1, @vendor3], @market.vendors_that_sell(@item1)
     assert_equal [@vendor2], @market.vendors_that_sell(@item4)
+  end
+
+  def test_it_can_find_sorted_item_list
+    @market.add_vendor(@vendor1)
+    @market.add_vendor(@vendor2)
+    @market.add_vendor(@vendor3)
+    assert_equal ["Banana Nice Cream", "Peach", "Peach-Raspberry Nice Cream", "Tomato"], @market.sorted_item_list
+  end
+
+  def test_it_can_find_total_inventory
+    @market.add_vendor(@vendor1)
+    @market.add_vendor(@vendor2)
+    @market.add_vendor(@vendor3)
+    assert_equal ({@item1 => 100, @item2 => 7, @item4 => 50, @item3 => 25}), @market.total_inventory
   end
 end

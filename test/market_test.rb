@@ -12,6 +12,7 @@ class VendorTest < Minitest::Test
     @item2 = Item.new({name: 'Tomato', price: '$0.50'})
     @item3 = Item.new({name: "Peach-Raspberry Nice Cream", price: "$5.30"})
     @item4 = Item.new({name: "Banana Nice Cream", price: "$4.25"})
+    @item5 = Item.new({name: 'Onion', price: '$0.25'})
     @vendor1 = Vendor.new("Rocky Mountain Fresh")
     @vendor1.stock(@item1, 35)
     @vendor1.stock(@item2, 7)
@@ -65,5 +66,9 @@ class VendorTest < Minitest::Test
     @market.add_vendor(@vendor2)
     @market.add_vendor(@vendor3)
     assert_equal ({@item1 => 100, @item2 => 7, @item4 => 50, @item3 => 25}), @market.total_inventory
+  end
+
+  def test_it_can_sell_products_and_reduce_stock
+    skip
   end
 end

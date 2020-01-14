@@ -19,18 +19,9 @@ class Market
   end
 
   def sorted_item_list
-    item_list = Hash.new(0)
-    inventory_consolidated = @vendors.map do |vendor|
-      vendor.inventory.each do |item, quantity|
-        item_list[item] += quantity
-      end
-    end
-
-    sorted_items = item_list.sort_by do |item, quantity|
-      item.name
-    end
-
-    sorted_items.map {|item, quantity| item.name}
+    @vendors.map do |vendor|
+      vendor.inventory.map{|item, quantity| item.name}.flatten
+    end.flatten.uniq.sort
   end
 
   def total_inventory

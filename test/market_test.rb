@@ -69,6 +69,15 @@ class VendorTest < Minitest::Test
   end
 
   def test_it_can_sell_products_and_reduce_stock
-    skip
+    @market.add_vendor(@vendor1)
+    @market.add_vendor(@vendor2)
+    @market.add_vendor(@vendor3)
+    assert_equal false, @market.sell(@item1, 200)
+    assert_equal false, @market.sell(@item5, 1)
+    assert_equal true, @market.sell(@item4, 5)
+    assert_equal 45, @vendor2.check_stock(@item4)
+    assert_equal true, @market.sell(@item1, 40)
+    assert_equal 0, @vendor1.check_stock(@item1)
+    assert_equal 60, @vendor3.check_stock(@item1)
   end
 end
